@@ -1,0 +1,8 @@
+{% if collection.handle == "bridal" %}
+
+<a href="https://wa.me/+923084895184?text={{shop.url | escape }}{{ product.url | within: collection}}" class="btn btn--small btn--share ">
+    <img src="https://url_of_the_uploaded_whatsapp_icon/filename.jpg" role="presentation" class="icon" style="width:18px; height:18px" title="share with whatsapp" alt="whatsapp_icon">
+    <span class="share-title" aria-hidden="true"> whatsapp</span>
+    </a>
+  
+  {% endif %}

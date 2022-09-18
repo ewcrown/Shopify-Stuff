@@ -1,0 +1,188 @@
+{% style %}
+.he-collection-wrap-inner img {
+    width:100%;
+}
+.he-grid-overlay a:hover {
+    border: 1px solid #000; 
+    color: #000;
+    background: #fff;
+}
+.he-grid-overlay a {
+    border: 1px solid #fff;
+    padding: 8px 34px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    background: #8d9b9a63;
+}
+.he-grid-overlay {
+    flex-direction: column;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 350px;
+}
+.he-collection-wrap {
+  position:relative;
+}
+.he-container {
+    width: 90%;
+    margin: auto;
+}
+.he-collection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 5px;
+}
+#he-collection-box-{{ section.id }} .he-collection-row {
+    padding-top:{{ section.settings.grid_section_padding_top }}px;
+    padding-bottom:{{ section.settings.grid_section_padding_bottom }}px;
+}
+
+@media (max-width:480px){
+  #he-collection-box-{{ section.id }} .he-collection-row {
+    padding-top:{{ section.settings.mob_grid_section_padding_top }}px;
+    padding-bottom:{{ section.settings.mob_grid_section_padding_bottom }}px;
+  }
+}
+
+{% endstyle %}
+<section class="he-collection-box" id="he-collection-box-{{ section.id }}">
+    <div class="he-collection-row">
+     <div class="he-container">
+       <div class="he-collection-grid">
+         {% for grid in section.blocks %}
+         {% if grid.settings.grid_image != blank %}
+           <div onclick='window.open("{{ grid.settings.grid_button_url }}","_self")' class="he-collection-wrap">
+            <div class="he-collection-wrap-inner">
+            <img src="{{ grid.settings.grid_image | img_url:'master'}}" alt="">
+            <div class="he-grid-overlay" style="background-color:{{ grid.settings.grid_overlay_bg }}">
+                <h1>{{ grid.settings.grid_heading }}</h1>
+                <p>{{ grid.settings.grid_tagline }}</p>
+                <a href="{{ grid.settings.grid_button_url }}">{{ grid.settings.grid_button_text }}</a>
+              </div>
+            </div>
+           </div>
+           {% endif %}
+         {% endfor %}
+       </div>
+     </div>
+   </div>
+ </section>
+ 
+ {% schema %}
+   {
+     "name": "Collection Box",
+     "settings": [
+        {
+          "type":"header",
+          "content":"Desktop Spacing"
+        },
+        {
+            "id":"grid_section_padding_top",
+            "type":"range",
+            "label":"Spacing Top",
+            "min":0,
+            "max":100,
+            "step":10,
+            "unit":"px",
+            "step":10,
+            "default":50
+        },
+        {
+            "id":"grid_section_padding_bottom",
+            "type":"range",
+            "label":"Spacing Bottom",
+            "min":0,
+            "max":100,
+            "step":10,
+            "unit":"px",
+            "step":10,
+            "default":50
+        },
+        {
+          "type":"header",
+          "content":"Mobile Spacing"
+        },
+        {
+            "id":"mob_grid_section_padding_top",
+            "type":"range",
+            "label":"Spacing Top",
+            "min":0,
+            "max":100,
+            "step":10,
+            "unit":"px",
+            "step":10,
+            "default":50
+        },
+        {
+            "id":"mob_grid_section_padding_bottom",
+            "type":"range",
+            "label":"Spacing Bottom",
+            "min":0,
+            "max":100,
+            "step":10,
+            "unit":"px",
+            "step":10,
+            "default":50
+        }
+     ],
+     "blocks":[
+        {
+            "name":"Grid",
+            "type":"grid",
+            "settings":[
+                {
+                    "id":"grid_image",
+                    "type":"image_picker",
+                    "label":"Grid Image"
+                },
+                {
+                    "id":"grid_overlay_bg",
+                    "type":"color",
+                    "label":"Overlay BG",
+                    "default":"#000"
+                },
+                {
+                    "id":"grid_heading",
+                    "type":"text",
+                    "label":"Collection Title",
+                    "default":"Collection Title"
+                },
+                {
+                    "id":"grid_tagline",
+                    "type":"text",
+                    "label":"Collection Tagline",
+                    "default":"Collection Tagline"
+                },
+                {
+                    "id":"grid_button_text",
+                    "type":"text",
+                    "label":"Collection Button Text",
+                    "default":"Buy Now"
+                },
+                {
+                    "id":"grid_button_url",
+                    "type":"url",
+                    "label":"Collection Button Url"
+                }
+            ]
+        }
+     ],
+     "presets":[
+       {
+         "name":"Collection Box",
+         "category":"custom"
+       }
+     ]
+ 
+   }
+ {% endschema %}

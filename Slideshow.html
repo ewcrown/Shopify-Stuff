@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+{%- style -%}
+
+.he-img-responsive {
+	height:100%;
+	display:block;
+	max-width:100%;
+}
+
+.he-mobile {
+	display:none;
+}
+
+#he-slideshow-{{ section.id }} .swiper-wrapper{
+	height:{{ section.settings.desktop_slider_height }}px;
+}
+
+#he-slideshow-{{ section.id }} .swiper-wrapper img{
+	object-fit:cover;
+	width:100%;
+}
+
+@media (max-width:767px){
+	.he-desktop {
+		display:none !important;
+	}
+	.he-mobile { 
+		display:block !important;
+	}
+    #he-slideshow-{{ section.id }} .swiper-wrapper{
+        height:{{ section.settings.mobile_slider_height }}px;
+    }
+}
+
+{%- endstyle -%}
+
+    <section class="he-slideshow" id="he-slideshow-{{ section.id }}">
+        <div class="he-top-slider-row">
+            <!----- Swiper Slider Start ------->
+            <div class="swiper heTopSlider">
+                <div class="swiper-wrapper">
+                  
+                  {% for be_slideshow in section.blocks %}
+                    <div class="swiper-slide">
+                      <a href="{{ be_slideshow.settings.slide_link }}">
+                      {% if be_slideshow.settings.be_desktop_banner != blank %}
+						<img src="{{ be_slideshow.settings.be_desktop_banner | img_url:'master' }}" class="he-img-responsive he-desktop" />
+                      {% endif  %}
+                      
+                      {% if be_slideshow.settings.be_mobile_banner != blank %}
+                        <img src="{{ be_slideshow.settings.be_mobile_banner | img_url:'master' }}" class="he-img-responsive he-mobile" />
+                      {% endif %}
+                      </a>
+                    </div>
+                  {% endfor %}
+                  
+                </div>
+            </div>
+            <!----- Swiper Slider End ------->
+        </div>
+    </section>
+
+
+<script>
+const heTopSlider = new Swiper(".heTopSlider", {
+  autoplay: {
+    delay: 3000,
+  },
+  loop: true,
+});
+</script>
+  <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+{% schema %}
+  {
+    "name": "Custom Slideshow",
+    "settings": [
+				{
+					"type":"range",
+					"id":"desktop_slider_height",
+					"label":"Desktop Slider Height",
+					"min":100,
+					"max":1000,
+					"step":50,
+					"unit":"px",
+					"default":400
+				},
+				{
+					"type":"range",
+					"id":"mobile_slider_height",
+					"label":"Mobile Slider Height",
+					"min":100,
+					"max":1000,
+					"step":50,
+					"unit":"px",
+					"default":400
+				}
+	],
+	"blocks":[
+		{
+			"name":"SlideShow",
+			"type":"qoute",
+			"settings":[
+                {
+                 "type":"image_picker",
+                 "id":"be_desktop_banner",
+                 "label":"Desktop Banner"
+                },
+                {
+                 "type":"image_picker",
+                 "id":"be_mobile_banner",
+                 "label":"Mobile Banner"
+                },
+				{
+					"type":"url",
+					"id":"slide_link",
+					"label":"Slide Link"
+				}
+			]
+		}	
+	],
+	"presets":[
+		{
+			"name":"Custom Slideshow",
+			"category":"custom"
+		}
+	]
+  }
+{% endschema %}
