@@ -1,0 +1,40 @@
+<div class="he-full-banner" id="he-full-banner">
+
+  <a href="{{ section.settings.full_bnr_url }}">
+    {% if section.settings.full_bnr_desktop %}
+      <img src="{{ section.settings.full_bnr_desktop | img_url:'master' }}" class="he-img-responsive he-desktop"/>
+    {% endif %}
+
+    {% if section.settings.full_bnr_mobile %}
+      <img src="{{ section.settings.full_bnr_mobile | img_url:'master' }}" class="he-img-responsive he-mobile"/>
+    {% endif %}
+  </a>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Full Banner",
+    "settings": [
+      {
+        "id": "full_bnr_desktop",
+        "type": "image_picker",
+        "label": "Desktop Banner Here"
+      }, {
+        "id": "full_bnr_mobile",
+        "type": "image_picker",
+        "label": "Mobile Banner Here"
+      }, {
+        "id": "full_bnr_url",
+        "type": "url",
+        "label": "Banner Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Full Banner",
+        "category": "custom"
+      }
+    ]
+  }
+{% endschema %}}}}

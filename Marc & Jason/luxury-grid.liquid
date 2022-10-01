@@ -1,0 +1,179 @@
+{% style %}
+  .he-lux-product-btn {
+    width: 100%;
+    border: 1px solid #000;
+    padding: 10px 0;
+  }
+  .he-lux-product-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+  .he-luxury-container {
+    width: 75%;
+    margin: auto;
+  }
+  .he-product-block {
+    width: 300px;
+    text-align: center;
+  }
+  .he-luxury-text h2 {
+    font-size: 40px;
+    text-align: left;
+    letter-spacing: -3px;
+    line-height: 45px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .he-luxury-text p {
+    font-size: 16px;
+    letter-spacing: 0;
+    margin-bottom: 30px;
+  }
+  .he-luxury-row {
+    padding: 80px 0;
+  }
+
+  .text-image {
+    grid-template-areas: "he_text he_image";
+  }
+
+  .image-text {
+    grid-template-areas: "he_image he_text";
+  }
+  .he-luxury-subwrap {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .he-luxury-image {
+    grid-area: he_image;
+  }
+
+  .he-luxury-text {
+    grid-area: he_text;
+    padding: 100px;
+  }
+  @media(max-width:767px) {
+    .he-luxury-subwrap {
+      grid-template-areas: "he_image" "he_text" !important;
+    }
+    .he-product-block {
+      width: 100%;
+    }
+    .he-luxury-subwrap {
+      grid-template-columns: 1fr;
+      grid-template-areas: "he_image" "he_text" !important;
+    }
+    .he-luxury-text h2 {
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: -1px;
+    }
+    .he-luxury-text p {
+      text-align: center;
+    }
+    .he-luxury-text {
+      padding: 20px 0;
+    }
+    .he-luxury-container {
+      width: 95%;
+      margin: auto;
+    }
+    .he-luxury-row {
+      padding: 30px 0 0 !important;
+    }
+  }
+{% endstyle %}
+<div class="he-luxury-grid" id="he-luxury-grid">
+  <div class="he-luxury-row">
+    <div class="he-luxury-container">
+      <div class="he-luxury-wrap">
+        {% for luxury in section.blocks %}
+          <div class="he-luxury-subwrap {% if luxury.settings.imageText != 'text-image'%}image-text {% else %}text-image {% endif %}">
+            <div class="he-luxury-image">
+              {% if luxury.settings.he_featured_img != blank %}
+                <img src="{{ luxury.settings.he_featured_img | img_url:'master' }}" class="he-img-responsive"/>
+              {% endif %}
+            </div>
+            <div class="he-luxury-text">
+              <h2>{{ luxury.settings.column_title }}
+              </h2>
+              <p>{{ luxury.settings.column_text }}
+              </p>
+              <div class="he-product-block">
+                <img src="{{ luxury.settings.column_product.featured_image | img_url:'master' }}" class="he-img-responsive"/>
+                <h4>{{ luxury.settings.column_product.title }}
+                </h4>
+                <form action="/cart/add" method="post" enctype="multipart/form-data" class="he-product-cart">
+                  <input type="hidden" name="id" value="{{ luxury.settings.column_product.selected_or_first_available_variant.id }}" class="he-hidden-product-cart">
+                  <button class="he-lux-product-btn">{{ luxury.settings.column_btnText }}
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Luxury Grid",
+    "settings": [],
+    "blocks": [
+      {
+        "name": "Grid Block",
+        "type": "grid-block",
+        "settings": [
+          {
+            "id": "imageText",
+            "type": "select",
+            "label": "Column Settings",
+            "options": [
+              {
+                "value": "image-text",
+                "label": "Image Text"
+              }, {
+                "value": "text-image",
+                "label": "Text Image"
+              }
+            ],
+            "default": "image-text"
+          },
+          {
+            "id": "he_featured_img",
+            "type": "image_picker",
+            "label": "Featured Image"
+          },
+          {
+            "id": "column_title",
+            "type": "text",
+            "label": "Title Here"
+          },
+          {
+            "id": "column_product",
+            "type": "product",
+            "label": "Select Product"
+          }, {
+            "id": "column_text",
+            "type": "text",
+            "label": "Text Here"
+          }, {
+            "id": "column_btnText",
+            "type": "text",
+            "label": "Select Product",
+            "default": "Shop It Now"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Luxury Grid",
+        "category": "custom"
+      }
+    ]
+  }
+{% endschema %}}

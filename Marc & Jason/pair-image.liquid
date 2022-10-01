@@ -1,0 +1,137 @@
+{% style %}
+  .he-pair-wrap {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+  }
+  .he-pair-text h2 {
+    font-size: 40px;
+    text-align: left;
+    letter-spacing: -3px;
+    line-height: 45px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  .he-pair-text h4 {
+    font-size: 18px;
+    letter-spacing: 0;
+    font-weight: 100;
+    margin-bottom: 40px;
+  }
+  .he-pair-row {
+    padding: 60px 0;
+  }
+  .he-pair-text p {
+    font-size: 16px;
+    letter-spacing: 0;
+    margin-bottom: 30px;
+  }
+  .he-pair-text a {
+    border: 2px solid #000;
+    padding: 8px 60px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+  @media(max-width:767px) {
+    .he-pair-wrap {
+      grid-template-columns: 1fr;
+      grid-gap: 20px !important;
+    }
+    .he-pair-text h2 {
+      text-align: center !important;
+      font-size: 24px !important;
+      line-height: normal;
+      padding-top: 10px !important;
+    }
+    .he-pair-text h4 {
+      font-size: 16px !important;
+      margin-bottom: 15px !important;
+      text-align: center !important;
+    }
+    .he-pair-text p {
+      text-align: center !important;
+    }
+    .he-pair-text {
+      text-align: center;
+    }
+    .he-pair-row {
+      padding: 30px 0 !important;
+    }
+  }
+{% endstyle %}
+<div class="he-pair-section" id="he-pair-section">
+  <div class="he-pair-row">
+    <div class="he-container">
+      <div class="he-pair-wrap">
+        <div class="he-pair-image">
+          {% if section.settings.img_pair != blank %}
+            <img src="{{ section.settings.img_pair | img_url:'master' }}" class="he-img-responsive"/>
+          {% endif %}
+        </div>
+        <div class="he-pair-text">
+          <img src="{{ section.settings.img_barbour | img_url:'master' }}" class="he-img-responsive"/>
+          <h2>{{ section.settings.pair_heading }}
+          </h2>
+          <h4>{{ section.settings.pair_sub_heading }}
+          </h4>
+          <p>{{ section.settings.pair_text }}
+          </p>
+          <a href="{{ section.settings.pair_btn_url }}" class="pair-button">{{ section.settings.pair_btn_text }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Pair Image Text",
+    "settings": [
+      {
+        "id": "img_pair",
+        "type": "image_picker",
+        "label": "Image Here"
+      },
+      {
+        "id": "img_barbour",
+        "type": "image_picker",
+        "label": "Barbour Image Here"
+      },
+      {
+        "id": "pair_heading",
+        "type": "text",
+        "label": "Heading Here",
+        "default": "BARBOUR X ALLEN EDMONDS"
+      },
+      {
+        "id": "pair_sub_heading",
+        "type": "text",
+        "label": "Sub Heading Here",
+        "default": "LEGEND SERIES LIMITED DROP"
+      }, {
+        "id": "pair_text",
+        "type": "text",
+        "label": "Text Here",
+        "default": "We’ve always had the long view. Essentials built to be worn and recrafted, not replaced. Now we’re taking that sustainably minded approach a step further with a brand-new range of boots and shoes made with lower impact materials."
+      }, {
+        "id": "pair_btn_text",
+        "type": "text",
+        "label": "Button Text Here",
+        "default": "Learn More"
+      }, {
+        "id": "pair_btn_url",
+        "type": "url",
+        "label": "Button Url Here"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Pair Image Text",
+        "category": "custom"
+      }
+    ]
+  }
+{% endschema %}}}}}
