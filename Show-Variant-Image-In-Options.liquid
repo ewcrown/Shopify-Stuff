@@ -1,0 +1,6 @@
+{%- for variant in product.variants -%}
+                        {%- if variant.option1 == value -%}
+                          {% assign variantImage = variant.featured_image %}
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {%- assign variantImage = variantImage | img_url: 'master' -%}
