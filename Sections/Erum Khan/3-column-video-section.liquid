@@ -1,0 +1,188 @@
+{% style %}
+.he-three-video-column {
+    padding: 80px 0px 30px;
+}
+
+.he-tvc-button {
+    text-align: center;
+    padding-top: 60px;
+}
+
+.he-tvc-button a:hover {
+    background: #fff;
+    color: #000;
+}
+
+.he-tvc-video h4 {
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.he-tvc-button a {
+    border: 1px solid #000;
+    display: inline-block;
+    padding: 16px 20px;
+    background: #272727;
+    color: #fff;
+}
+
+.he-tvc-title {
+    margin-bottom: 60px;
+}
+
+.he-tvc-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+}
+
+.he-tvc-container {
+    width: 60%;
+    margin: auto;
+}
+
+
+.he-tvc-video video {
+    object-fit: cover;
+}
+
+@media (max-width:767px) {
+    .he-three-video-column {
+        padding: 30px 0px 0px;
+    }
+
+    .he-tvc-video video {
+        height: 380px;
+    }
+
+    .he-tvc-wrap {
+        grid-gap: 20px;
+        overflow: scroll;
+        width: 850px;
+        padding-right: 80px;
+    }
+
+    .he-tvc-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .he-tvc-row {
+        overflow: scroll;
+        padding: 30px 0px 0px;
+    }
+
+    .he-tvc-container {
+        width: 75%;
+    }
+
+    .he-tvc-title {
+        margin-bottom: 0px;
+    }
+
+    .he-tvc-button {
+        padding-top: 20px;
+    }
+
+    .he-tvc-button a {
+        padding: 5px 25px;
+        font-size: 14px;
+    }
+}
+{% endstyle %}
+
+<section id="he-three-video-column" class="he-three-video-column">
+  <div class="he-tvc-container">
+    <div class="he-tvc-title">
+      <h3 class="section-title tc pr flex fl_center al_center fs__24 title_2"><span class="mr__10 ml__10">{{ section.settings.tvc_title }}</span></h3>
+      <span class="section-subtitle db tc sub-title">{{ section.settings.tvc_subtitle }}</span>
+    </div>
+  </div>
+
+  <div class="he-tvc-row">
+    <div class="he-tvc-container">
+      <div class="he-tvc-inner-row">
+
+        <div class="he-tvc-wrap">
+          {% for video in section.blocks %}
+
+          <div class="he-tvc-video" onclick="window.open('{{ video.settings.productUrl }}','_self')">
+            <video width="100%" height="600" muted autoplay loop>
+              <source src="{{ video.settings.video_url }}" type="video/mp4">
+            </video>
+            <h4>{{ video.settings.product_title }}</h4>
+          </div>
+
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="he-tvc-container">
+    <div class="he-tvc-button">
+      <a href="{{ section.settings.tvc_anchor_link }}">{{ section.settings.tvc_anchor }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "He Three Video Column",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tvc_title",
+      "label": "Title Here",
+      "default": "FEATURED"
+    },
+    {
+      "type": "text",
+      "id": "tvc_subtitle",
+      "label": "Subtitle Here",
+      "default": "INTRODUCING OUR LATEST ADDITIONS"
+    },
+    {
+      "type": "text",
+      "id": "tvc_anchor",
+      "label": "Button Text",
+      "default": "Discover More"
+    },
+    {
+      "type": "url",
+      "id": "tvc_anchor_link",
+      "label": "Button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Video",
+      "type": "video",
+      "settings": [
+        {
+          "id": "video_url",
+          "type": "url",
+          "label": "Video URL"
+        },
+        {
+          "id": "productUrl",
+          "type": "url",
+          "label": "Product Url"
+        },
+        {
+          "id": "product_title",
+          "type": "text",
+          "label": "Title Here",
+          "default": "Product Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "He Three Video Column",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

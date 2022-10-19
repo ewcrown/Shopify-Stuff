@@ -1,0 +1,23 @@
+{% style %}
+.he-box img {
+    cursor: pointer;
+}
+
+.he-box {
+    width: 60px;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    z-index: 9;
+}
+
+{% endstyle %}
+
+<div class="he-box">
+  <a href="https://wa.me/+923084895184?text={{shop.url | escape }}{{ product.url | within: collection}}" >
+    <img src="{{ 'whatsapp.png' | file_url }}" />
+  </a>
+</div>
