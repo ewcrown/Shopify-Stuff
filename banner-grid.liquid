@@ -1,0 +1,176 @@
+{% style %}
+  .he-responsive {
+    height:auto;
+    display:block;
+    max-width:100%;
+  }
+  .he-grid-column-row {
+    padding: {{ section.settings.sectionPadding }}px 0px;
+  }
+  .he-grid-col {
+    border:1px solid #000;
+  }
+   .he-grid-start {
+        display: grid;
+        grid-template-areas:
+  'row1ColLeft row1ColLeft row1ColRight row1ColRight'
+  'row2Full row2Full row2Full row2Full'
+  'row3Col1 row3Col2 row3Col3 row3Col4'
+  'row4Col1 row4Col1 row4Col2 row4Col2';
+  grid-gap: 20px;
+    }
+  .he-container {
+    padding:0px 15px;
+  }
+    .he-col1 {
+        grid-area: row1ColLeft;
+    }
+    .he-col2 {
+        grid-area: row1ColRight;
+    }
+    .he-col3 {
+        grid-area: row2Full;
+    }
+    .he-col4 {
+        grid-area: row3Col1;
+    }
+    .he-col5 {
+        grid-area: row3Col2;
+    }
+    .he-col6 {
+        grid-area: row3Col3;
+    }
+    .he-col7 {
+        grid-area: row3Col4;
+    }
+    .he-col8 {
+        grid-area: row4Col1;
+    }
+    .he-col9 {
+        grid-area: row4Col2;
+    }
+    .he-mobile {
+            display: none;
+        }
+    @media (max-width:767px){
+        .he-desktop {
+            display: none;
+        }
+        .he-mobile {
+            display: block;
+        }
+        .he-grid-start {
+        grid-template-areas:
+  'row1ColLeft'
+  'row1ColRight'
+  'row2Full'
+  'row3Col1'
+  'row3Col2'
+  'row3Col3'
+  'row3Col4'
+  'row4Col1'
+  'row4Col2';
+    }
+    .he-grid-column-row {
+    padding: {{ section.settings.sectionPaddingMob }}px 0px;
+  }
+    }
+{% endstyle %}
+  <div class="he-grid-column-wrap" id="he-grid-column-wrap-{{ section.id }}">
+        <div class="he-grid-column-row">
+            <div class="he-container">
+                <div class="he-grid-start">
+                    {% for gridCol in section.blocks %}
+                    <div class="he-grid-col he-col{{ forloop.index }}">
+                        <a href="{{ gridCol.settings.imgUrl }}">
+                            {% if gridCol.settings.imgSrc != blank %}
+                            <img src="{{ gridCol.settings.imgSrc | img_url:'master' }}" class="he-responsive he-desktop" style="height:{{ gridCol.settings.imgHeight }}px !important">
+                            {% endif %}
+
+                            {% if gridCol.settings.imgSrcMob != blank %}
+                            <img src="{{ gridCol.settings.imgSrcMob | img_url:'master' }}" class="he-responsive he-mobile" style="height:{{ gridCol.settings.imgHeightMob }}px !important">
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+      {% schema %}
+        {
+            "name":"Banner Grid",
+            "settings":[
+              {  
+                "type":"range",
+                "id":"sectionPadding",
+                "label":"Desktop Padding",
+                "min":0,
+                "max":100,
+                "step":5,
+                "unit":"px",
+                "default":50
+              },
+              {  
+                "type":"range",
+                "id":"sectionPaddingMob",
+                "label":"Mobile Padding",
+                "min":0,
+                "max":100,
+                "step":5,
+                "unit":"px",
+                "default":50
+              }
+            ],
+            "blocks":[
+                {
+                    "type":"grid",
+                    "name":"Column",
+                    "settings":[
+                        {  
+                            "type":"url",
+                            "id":"imgUrl",
+                            "label":"Image Url"
+                        },
+                        {  
+                            "type":"image_picker",
+                            "id":"imgSrc",
+                            "label":"Desktop Image Here"
+                        },
+                        {  
+                            "type":"range",
+                            "id":"imgHeight",
+                            "label":"Desktop Image Height",
+                            "min":100,
+                            "max":600,
+                            "step":50,
+                            "unit":"px",
+                            "default":200
+                        },
+                        {  
+                            "type":"image_picker",
+                            "id":"imgSrcMob",
+                            "label":"Mobile Image Here"
+                        },
+                        {  
+                            "type":"range",
+                            "id":"imgHeightMob",
+                            "label":"Mobile Image Height",
+                            "min":100,
+                            "max":600,
+                            "step":50,
+                            "unit":"px",
+                            "default":200
+                        }
+                    ]
+                }
+            ],
+            "presets":[
+                {
+                    "name":"Banner Grid",
+                    "category":"custom"
+                }
+            ]
+        }
+    {% endschema %}

@@ -2,6 +2,7 @@
 
 a[href=""] {
     animation: blink 1s infinite;
+    color:#ff0000;
 }
 
 @keyframes blink {
