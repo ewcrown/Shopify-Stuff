@@ -1,0 +1,1 @@
+{% render 'countdown-timer', id:"topbar-counter", title: "Sale Ending In", end_date: "Jan 30, 2023" %}

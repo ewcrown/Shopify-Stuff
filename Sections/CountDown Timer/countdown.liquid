@@ -1,0 +1,123 @@
+{% assign id = section.settings.countdown_id %}
+{% assign title = section.settings.countdown_title %}
+{% assign end_date = section.settings.countdown_ends_at %}
+
+{% style %}
+    .timer {
+    background: #f6fafd;
+    padding: 10px;
+    margin: 10px 0;
+    clear: both;
+  }
+
+  .timer--expired {
+    display: none;
+  }
+
+  .timer__title {
+    color: red;
+    text-align: left;
+  }
+
+  .timer-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+
+  .timer-block {
+    position: relative;
+    width: 25%;
+    padding: 0 10px;
+  }
+
+  .timer-block__num,
+  .timer-block__unit {
+    display: block;
+    text-align: center;
+  }
+{% endstyle %}
+{% if end_date != blank %}
+  <div id="{{ id }}" class="timer">
+    {% if title != blank -%}
+      <h3 class="timer__title">{{ title }}</h3>
+    {%- endif %}
+
+    <div class="timer-display">
+      <div class="timer-block">
+        <span class="timer-block__num js-timer-days">00</span>
+
+        <span class="timer-block__unit">Days</span>
+      </div>
+
+      <div class="timer-block">
+        <span class="timer-block__num js-timer-hours">00</span>
+
+        <span class="timer-block__unit">Hours</span>
+      </div>
+
+      <div class="timer-block">
+        <span class="timer-block__num js-timer-minutes">00</span>
+
+        <span class="timer-block__unit">Minutes</span>
+      </div>
+
+      <div class="timer-block">
+        <span class="timer-block__num js-timer-seconds">00</span>
+
+        <span class="timer-block__unit">Seconds</span>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% javascript %}
+  var second = 1000,
+    minute = second * 60,
+    hour = minute * 60,
+    day = hour * 24;
+
+  var countDown = new Date('{{- end_date -}}').getTime(),
+    x = setInterval(function () {
+      var now = new Date().getTime(),
+        distance = countDown - now;
+
+      (document.querySelector('#{{ id }} .js-timer-days').innerText = Math.floor(distance / day)),
+        (document.querySelector('#{{ id }} .js-timer-hours').innerText = Math.floor((distance % day) / hour)),
+        (document.querySelector('#{{ id }} .js-timer-minutes').innerText = Math.floor((distance % hour) / minute)),
+        (document.querySelector('#{{ id }} .js-timer-seconds').innerText = Math.floor((distance % minute) / second));
+    }, second);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Countdown Timer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "countdown_id",
+      "label": "CountDown ID",
+      "default": "topbar-counter"
+    },
+    {
+      "type": "text",
+      "id": "countdown_title",
+      "label": "CountDown Title",
+      "default": "Sale Ending In"
+    },
+    {
+      "type": "text",
+      "id": "countdown_ends_at",
+      "label": "CountDown End Date",
+      "default": "Jan 30, 2023"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Timer",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
