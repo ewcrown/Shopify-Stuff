@@ -12,12 +12,17 @@
 <body>
 
     <!-- Swiper -->
-    <div class="swiper mySwiper">
-        <div class="swiper-wrapper" id="slider">
+    <section class="recommended-products-slider" id="recommended-products-slider-{{ product.id }}">
+        <div class="page-width">
+          <h2 class="he-section-title">Recommended Products</h2>
+          <div class="swiper recommendedSlider">
+            <div class="swiper-wrapper" id="slider"></div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          </div>
         </div>
-        <div class="swiper-pagination"></div>
-    </div>
-
+      </section>
 
     <script src="/Recommended Slider/script.js"></script>
     <!-- Swiper JS -->
