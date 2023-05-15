@@ -1,0 +1,157 @@
+<style>
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-wrapper {
+    margin-bottom: 40px;
+  }
+
+  .he-img-responsive {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .recommended-products-slider {
+    background: orange;
+    padding: 60px 0px;
+  }
+
+  .recommended-products-slider .swiper-pagination {
+    position: relative;
+  }
+
+  .recommended-products-slider a {
+    text-decoration: none;
+  }
+
+  .he-product-title {
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+    margin: 0;
+    padding-top: 15px;
+  }
+
+  .recommended-products-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: #fff;
+    border: 1px solid #000;
+  }
+
+  .he-section-title {
+    margin: 0 0 60px;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 32px;
+  }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
+<!-- Swiper -->
+<section class="recommended-products-slider" id="recommended-products-slider-{{ product.id }}">
+  <div class="page-width">
+    <h2 class="he-section-title">Recommended Products</h2>
+    <div class="swiper recommendedSlider">
+      <div class="swiper-wrapper" id="slider"></div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Recommended Slider JS -->
+<script>
+getProducts(window.Shopify.routes.root + "recommendations/products.json?product_id={{ product.id }}&limit=20&intent=related")
+
+async function getProducts(api) {
+  let response = await fetch(api);
+
+  let data = await response.json();
+
+  let swiperWrapper = document.getElementById('slider')
+
+  const products = data.products
+
+  for (var i = 0; i < products.length; i++) {
+
+    let div = document.createElement('div')
+    div.className = 'swiper-slide'
+    let product = products[i]
+
+    const contentDiv = `
+      <div class="product-wrap" id="product-wrap-${product.id}">
+      <a href="${product.url}">
+        <img src="${product.featured_image}" alt="${product.title}" class="he-img-responsive" />
+        <h3 class="he-product-title">${product.title}</h3>
+        </a>
+      </div>
+    `
+    div.innerHTML = contentDiv
+
+    swiperWrapper.appendChild(div)
+
+  }
+}
+
+</script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".recommendedSlider", {
+    slidesPerView: 4,
+    spaceBetween: 30,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    loop: true.
+      pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+    breakpoints: {
+    640: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 4,
+      spaceBetween: 40,
+    },
+    1024: {
+      slidesPerView: 5,
+      spaceBetween: 50,
+    },
+  },
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Recommended Slider",
+    "settings": [
+    ],
+    "presets":[
+      {
+      "name": "Recommended Slider",
+      "category":"custom"
+      }
+  ]
+}
+{% endschema %}
