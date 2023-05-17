@@ -18,12 +18,13 @@
     display: block;
     height: auto;
     max-width: 100%;
+    margin:auto;
   }
 
   .recommended-products-slider {
-    background: orange;
-    padding: 60px 0px;
-  }
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
 
   .recommended-products-slider .swiper-pagination {
     position: relative;
@@ -51,21 +52,43 @@
     text-align: center;
     color: #000;
     font-weight: bold;
-    font-size: 32px;
+    margin-bottom: 90px;
   }
+  .recommended-products-slider .swiper-button {
+    display:block;
+  }
+  .recommended-products-slider {
+    background:{{section.settings.background_color }};
+  }
+  .he-section-title{
+    font-size:{{section.settings.font_size }}px;
+    color:{{section.settings.product_title}};
+  }
+  .he-product-title{
+    font-size:{{section.settings.font-size }}px;
+    color:{{section.settings.body_text}};
+  }
+ 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 
 <!-- Swiper -->
+<div class="recommended-products-slider">
+<div class="container">
 <section class="recommended-products-slider" id="recommended-products-slider-{{ product.id }}">
   <div class="page-width">
-    <h2 class="he-section-title">Recommended Products</h2>
+    <h2 class="he-section-title" >Recommended Products</h2>
     <div class="swiper recommendedSlider">
       <div class="swiper-wrapper" id="slider"></div>
       <div class="swiper-pagination"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      
+     {% if section.settings.arrow_pagination == true %}
+      <div class="swiper-button swiper-button-next"></div>
+      <div class="swiper-button swiper-button-prev"></div>
+     {% endif %}
     </div>
+  </div>
+  </div>
   </div>
 </section>
 
@@ -112,30 +135,34 @@ async function getProducts(api) {
   var swiper = new Swiper(".recommendedSlider", {
     slidesPerView: 4,
     spaceBetween: 30,
+     {% if section.settings.arrow_pagination == true %}
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
+    {% endif %}
     autoplay: {
       delay: 2500,
       disableOnInteraction: false,
     },
-    loop: true.
-      pagination: {
+    loop: true,
+    {% if section.settings.dot_pagination == true %}
+    pagination: {
     el: ".swiper-pagination",
     clickable: true,
   },
+    {% endif %}
     breakpoints: {
     640: {
       slidesPerView: 2,
       spaceBetween: 20,
     },
     768: {
-      slidesPerView: 4,
+      slidesPerView: 3,
       spaceBetween: 40,
     },
     1024: {
-      slidesPerView: 5,
+      slidesPerView: 4,
       spaceBetween: 50,
     },
   },
@@ -146,7 +173,54 @@ async function getProducts(api) {
 {
   "name": "Recommended Slider",
     "settings": [
+
+    {
+      "type": "color",
+   "id": "background_color",
+   "label": "Background color",
+   "default": "#ffffff"
+    },
+ 
+      {
+  "type": "number",
+  "id": "font_size",
+  "label": "Font size",
+  "default": 16
+},
+          {
+  "type": "color",
+  "id": "product_title",
+  "label": "Product Title Color",
+  "default": "#000000"
+},
+ {
+  "type": "number",
+  "id": "font-size",
+  "label": "Font size",
+  "default": 16
+},
+      {
+  "type": "color",
+  "id": "body_text",
+  "label": "Body text",
+  "default": "#000000"
+},
+      {
+  "type": "checkbox",
+  "id": "dot_pagination",
+  "label": "Dots",
+  "default": true
+},
+           {
+  "type": "checkbox",
+  "id": "arrow_pagination",
+  "label": "Arrows",
+  "default": true
+}
+  
+      
     ],
+  
     "presets":[
       {
       "name": "Recommended Slider",
@@ -154,4 +228,4 @@ async function getProducts(api) {
       }
   ]
 }
-{% endschema %}
+{% endschema %}
