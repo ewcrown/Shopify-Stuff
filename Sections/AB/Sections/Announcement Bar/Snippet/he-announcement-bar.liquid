@@ -1,0 +1,16 @@
+<div class="swiper he-slide-ss">
+  <div class="swiper-wrapper">
+
+    {% comment %} Slide {% endcomment %}
+
+    {% for block in blocks %}
+      <div class="swiper-slide he-slide-block">
+        {{ block.settings.slide_text }}
+      </div>
+    {% endfor %}
+
+  </div>
+  <div class="he-slide-button-next">
+    <i class="fa fa-chevron-right"></i>
+  </div>
+</div>

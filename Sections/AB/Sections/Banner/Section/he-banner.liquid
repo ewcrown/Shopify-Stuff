@@ -1,0 +1,24 @@
+{% assign s = section.settings %}
+{% render 'picture', desktop_img: s.desktop, mobile_img: s.mobile, class: "he-full-picture" %}
+
+{% schema %}
+  {
+    "name": "Full Banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Desktop Image",
+        "id": "desktop"
+      }, {
+        "type": "image_picker",
+        "label": "Mobile Image",
+        "id": "mobile"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Full Banner"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,119 @@
+{% style %}
+.he-newsletter-row {
+    background: rgb(248, 247, 245);
+    padding: 80px 0px;
+}
+
+.he-newsletter-wrap h3 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.he-newsletter-wrap p {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.he-newsletter-wrap h6 {
+    font-size: 14px;
+    text-align: center;
+    color: #000;
+    font-weight: 400;
+}
+
+.he-newsletter-wrap h6 a {
+    color: #000;
+    font-weight: 600;
+}
+
+.he-newsletter-wrap .he-newsletter-form {
+    margin-bottom: 20px;
+}
+
+.he-signup button[type="submit"] {
+    padding: 13px 18px;
+    color: #fff;
+    background: #000;
+    border: none;
+}
+
+.he-signup input {
+    border-bottom: 2px solid #000 !important;
+    padding: 12px 18px;
+    border: none;
+    outline: none;
+    width: 600px;
+}
+
+.he-signup {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+@media(max-width:767px){
+    .he-newsletter-row {
+        padding: 40px 0px;
+    }
+    .he-newsletter-wrap h3 {
+        font-size: 25px;
+    }
+    .he-signup input {
+        padding: 12px 18px;
+        width: 100%;
+    }
+    .he-signup {
+        flex-direction: column;
+    }
+    .he-signup button[type="submit"] {
+        width: 100%;
+    }
+}
+{% endstyle %}
+
+{% assign s = section.settings %}
+
+<section class="he-newsletter-section" id="he-newsletter-section">
+  <div class="he-newsletter-row">
+    <div class="he-container">
+      <div class="he-newsletter-wrap">
+        <h3>{{ s.heading }}</h3>
+        <p>{{ s.paragraph }}</p>
+        {% render 'he-newsletter', section: section %}
+        {{ s.rich_paragraph }}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Newsletter Dibs",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Title Here",
+        "default": "Want First Dibs?"
+      }, {
+        "type": "text",
+        "id": "paragraph",
+        "label": "Paragraph Here",
+        "default": "Join our email list and be the first to know about new limited edition products, material innovations, and lots of other fun updates."
+      }, {
+        "type": "richtext",
+        "id": "rich_paragraph",
+        "label": "Paragraph Here",
+        "default": "<h6>Note: You can opt-out at any time. See our <a href='https://www.allbirds.com/pages/privacy-policy'>Privacy Policy</a> and <a href='https://www.allbirds.com/pages/allbirds-terms-of-use'>Terms</a>.</h6>"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Newsletter Dibs"
+      }
+    ]
+  }
+{% endschema %}

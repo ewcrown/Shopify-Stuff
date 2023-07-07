@@ -1,0 +1,59 @@
+{% form 'customer', class: 'he-newsletter-form' %}
+  <input
+    type="hidden"
+    name="contact[tags]"
+    value="newsletter">
+  <div
+    class="he-newsletter-form__field-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if settings.animations_reveal_on_scroll %}
+    data-cascade
+    style="--animation-order: {{ forloop.index }};"
+    {% endif %}>
+    <div class="he-signup">
+      <input
+        id="NewsletterForm--{{ section.id }}"
+        type="email"
+        name="contact[email]"
+        class=""
+        value="{{ form.email }}"
+        aria-required="true"
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="email"
+        {% if form.errors %}
+        autofocus
+        aria-invalid="true"
+        aria-describedby="Newsletter-error--{{ section.id }}"
+        {% elsif form.posted_successfully? %}
+        aria-describedby="Newsletter-success--{{ section.id }}"
+        {% endif %}
+        placeholder="Enter Your Email Address"
+        required>
+      <button
+        type="submit"
+        class=""
+        name="commit"
+        id=""
+        aria-label="{{ 'newsletter.button_label' | t }}">
+        SIGN UP
+      </button>
+    </div>
+    {%- if form.errors -%}
+      <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+        {%- render 'icon-error' -%}
+        {{- form.errors.translated_fields.email | capitalize }}
+        {{ form.errors.messages.email -}}
+      </small>
+    {%- endif -%}
+  </div>
+  {%- if form.posted_successfully? -%}
+    <h3
+      class="newsletter-form__message newsletter-form__message--success form__message"
+      id="Newsletter-success--{{ section.id }}"
+      tabindex="-1"
+      autofocus>
+      {% render 'icon-success' -%}
+      {{- 'newsletter.success' | t }}
+    </h3>
+  {%- endif -%}
+{% endform %}

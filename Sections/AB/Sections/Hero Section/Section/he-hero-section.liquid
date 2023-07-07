@@ -1,0 +1,124 @@
+{% style %}
+.he-hero-image-side img {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+}
+.he-hero-wrap {
+  position: relative;
+}
+.he-hero-text-side {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0px 200px 80px;
+}
+.he-hero-text-side h3 {
+  font-size: 48px;
+  color: #fff;
+  font-weight: bold;
+  line-height: 42px;
+  margin-bottom: 20px;
+}
+.he-hero-text-side p {
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+.he-hero-buttons-wrap {
+  display: flex;
+  gap: 25px;
+}
+@media (max-width: 767px) {
+  .he-hero-text-side {
+    padding: 0px 30px 30px;
+  }
+  .he-hero-text-side h3 {
+    font-size: 32px;
+    line-height: normal;
+    margin-bottom: 10px;
+  }
+  .he-hero-text-side p {
+    margin-bottom: 40px;
+}
+}
+
+{% endstyle %}
+{% assign s = section.settings %}
+
+
+<section
+  class="he-hero-section"
+  id="he-hero-section">
+  <div
+    class="he-hero-row">
+    <div
+      class="he-hero-wrap">
+      <div
+        class="he-hero-image-side">
+        {% render 'img-fluid', img: s.image %}
+      </div>
+      <div
+        class="he-hero-text-side">
+        <h3>{{ s.heading }}</h3>
+        <p>{{ s.paragraph }}</p>
+        <div
+          class="he-hero-buttons-wrap">
+          {% render 'he-two-button', btn1: s.button1, btn1_url: s.button1_url, btn2: s.button2, btn1_url: s.button2_url, class: "he-primay-button" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Hero Section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image Here"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading Here",
+        "default": "Summer Travel Essentials"
+      },
+      {
+        "type": "text",
+        "id": "paragraph",
+        "label": "Paragraph Here",
+        "default": "Whether you’re hitting the beach or exploring a new city, save your feet (and precious packing space) with these easygoing, go-anywhere styles."
+      },
+      {
+        "type": "text",
+        "id": "button1",
+        "label": "Button 1 Here",
+        "default": "Show Men"
+      }, {
+        "type": "url",
+        "id": "button1_url",
+        "label": "Button 1 Url"
+      }, {
+        "type": "text",
+        "id": "button2",
+        "label": "Button 2 Here",
+        "default": "Show Women"
+      }, {
+        "type": "url",
+        "id": "button2_url",
+        "label": "Button 2 Url"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Section"
+      }
+    ]
+  }
+{% endschema %}

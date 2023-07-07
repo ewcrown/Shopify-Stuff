@@ -1,0 +1,10 @@
+<picture>
+  <source media="(max-width: 480px)" srcset="{{ mobile_img | img_url:'master' }}">
+  <img
+    src="{{ desktop_img | img_url:'master' }}"
+    alt="{{ desktop_img.alt }}"
+    class="he-img-responsive {{class}}"
+    loading="lazy"
+    width=""
+    height="">
+</picture>

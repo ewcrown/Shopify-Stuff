@@ -1,0 +1,46 @@
+<div class="swiper he-product-ss">
+  <h3 class="he-slider-title">{{ title }}</h3>
+  <div class="swiper-wrapper">
+    {% comment %} Collection {% endcomment %}
+    {% if radio == 'collection' %}
+      {% for product in collection %}
+        <div class="swiper-slide he-product-block">
+          {% render 'img-fluid', img: product.featured_image %}
+          <div class="he-product-box">
+            <h3>{{ product.title }}</h3>
+            <p>
+
+              {% for option in product.options_with_values %}
+                {% if option.name == 'Material' %}
+                  {{ option.values }}
+                {% endif %}
+              {% endfor %}
+
+              , Now {{ product.price | money }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% comment %} Pages {% endcomment %}
+    {% if radio == 'pages' %}
+      {% for block in pages %}
+        <div class="swiper-slide he-product-block">
+          {% render 'img-fluid', img: block.settings.page_featured_image %}
+          <div class="he-product-box">
+            <h3>{{ block.settings.slider_page.title }}</h3>
+            <p>{{ block.settings.slider_page.content }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="he-product-navigation-wrap">
+    <div class="he-product-button he-product-button-prev">
+      <i class="fa fa-chevron-left"></i>
+    </div>
+    <div class="he-product-button he-product-button-next">
+      <i class="fa fa-chevron-right"></i>
+    </div>
+  </div>
+</div>

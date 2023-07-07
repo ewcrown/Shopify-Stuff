@@ -1,0 +1,84 @@
+{% assign s = section.settings %}
+
+{% style %}
+.he-slide-block p {
+    color: #fff;
+    text-align: center;
+    font-size:11px;
+}
+.he-slide-button-next i {
+    color:#fff;
+    cursor: pointer;
+}
+.he-slide-button-next {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    line-height: normal;
+}
+.he-ab-row {
+    padding:10px 0px;
+}
+  .he-ab-row {
+    background: {{ s.bg }}
+    ;
+  }
+{% endstyle %}
+
+<section class="he-announcement-bar-section" id="he-announcement-bar-section">
+  <div class="he-ab-row">
+    <div class="he-container">
+      <div class="he-ab-wrap">
+        {% render 'he-announcement-bar', blocks: section.blocks %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Announcement Slider
+
+var swiper = new Swiper(".he-slide-ss", {
+  slidesPerView: 1,
+  spaceBetween: 30,
+  loop: true,
+  navigation: {
+    nextEl: ".he-slide-button-next",
+  },
+});
+
+</script>
+
+{% schema %}
+  {
+    "name": "Announcement bar",
+    "settings": [
+      {
+        "type": "color",
+        "label": "Background Color",
+        "id": "bg",
+        "default": "#000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "richtext",
+            "label": "Slide Text",
+            "id": "slide_text",
+            "default": "<p>The Palm Springs Collection Is Here. <b><u>Shop Men</u></b> | <b><u>Shop Women</u></b></p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Announcement bar"
+      }
+    ]
+  }
+{% endschema %}

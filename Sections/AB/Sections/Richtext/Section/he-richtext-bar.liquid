@@ -1,0 +1,49 @@
+{% style %}
+.he-richtext {
+    background:#212a2f;
+    padding:15px;
+}
+
+.he-richtext a {
+    text-align: center;
+    display: block;
+    color:#fff;
+    font-size:15px;
+    text-decoration: none;
+}
+{% endstyle %}
+
+
+{% assign s = section.settings %}
+
+<section
+  class="he-richtext">
+  <div
+    class="he-container">
+    <a
+      href="{{s.bar_url}}">{{ s.bar_text }}</a>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Richtext Bar",
+    "settings": [
+      {
+        "type": "url",
+        "label": "Bar Link",
+        "id": "bar_url"
+      }, {
+        "type": "richtext",
+        "label": "Richtext",
+        "id": "bar_text",
+        "default": "<p><b>Discover Your Perfect Pair</b> Try our Style Quiz to find the best pair for you. <u>Take the Style Quiz</u></p>"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Richtext Bar"
+      }
+    ]
+  }
+{% endschema %}

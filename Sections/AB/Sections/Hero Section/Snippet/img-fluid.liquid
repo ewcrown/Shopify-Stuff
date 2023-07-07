@@ -1,0 +1,9 @@
+{% if img %}
+  <img
+    src="{{ img | img_url:'master' }}"
+    alt="{{img.alt}}"
+    class="he-img-responsive {{ class }}"
+    loading="lazy"
+    width=""
+    height="">
+{% endif %}

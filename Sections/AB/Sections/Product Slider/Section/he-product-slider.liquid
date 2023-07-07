@@ -1,0 +1,174 @@
+{% style %}
+.he-slider-title {
+  font-size: 32px;
+  color: #000;
+}
+
+.he-product-block {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 24px 0px;
+  border-radius: 3px;
+}
+
+.he-product-box h3 {
+  font-size: 22px;
+}
+
+.he-product-box p {
+  font-size: 18px;
+}
+
+.he-product-box {
+  padding: 18px;
+}
+
+.he-product-button-prev i {
+  left: 0;
+}
+.he-product-button-next i {
+  right: 0;
+}
+.he-product-navigation-wrap .swiper-button-disabled {
+  opacity: 0;
+}
+.he-product-button i {
+  position: absolute;
+  top: 22rem;
+  background: #fff;
+  border-radius: 50%;
+  padding: 14px 17px;
+  border: 1px solid rgb(211, 212, 213);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 24px 0px;
+  transition: border-color 125ms ease-in-out 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+  margin: 40px;
+  cursor: pointer;
+}
+
+.he-product-ss:has(.he-product-button-next.swiper-button-disabled)
+  .he-product-block:last-of-type {
+  opacity: 0;
+}
+.he-product-ss:has(.he-product-button-next.swiper-button-disabled)
+  .swiper-wrapper {
+  margin-left: 0px;
+}
+.he-product-slider-row {
+  padding-bottom: 100px;
+}
+@media (min-width: 768px) {
+  .he-product-ss .swiper-wrapper {
+    margin-left: 150px;
+  }
+
+  .he-product-ss .swiper-wrapper {
+    padding: 20px;
+  }
+  .he-slider-title {
+    margin-left: 170px;
+  }
+}
+@media (max-width: 767px) {
+  .he-product-slider-row {
+    padding: 0px 30px 30px;
+  }
+  .he-product-navigation-wrap {
+    display: none;
+  }
+  .he-slider-title {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .he-product-ss .swiper-wrapper {
+    padding:10px;
+  }
+}
+
+{% endstyle %}
+{% assign s = section.settings %}
+
+<section class="he-product-slider-section" id="he-product-slider-section">
+  <div class="he-product-slider-row">
+    <div class="he-product-slider-wrap">
+      <div class="he-product-slider-wrap">
+        {% render 'he-product-slider', radio: s.select_data, title: s.title_here, collection: s.collection.products, pages: section.blocks %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Product Slider
+
+var swiper = new Swiper(".he-product-ss", {
+  slidesPerView: 1.2,
+  spaceBetween: 30,
+  navigation: {
+    nextEl: ".he-product-button-next",
+    prevEl: ".he-product-button-prev",
+  },
+  breakpoints: {
+    767: {
+      slidesPerView: 4,
+      spaceBetween: 30,
+    },
+  },
+});
+
+</script>
+
+{% schema %}
+  {
+    "name": "Product Slider",
+    "settings": [
+      {
+        "type": "radio",
+        "id": "select_data",
+        "label": "Select Collection Or Pages",
+        "options": [
+          {
+            "value": "pages",
+            "label": "Pages"
+          }, {
+            "value": "collection",
+            "label": "Collection"
+          }
+        ],
+        "default": "collection"
+      }, {
+        "type": "text",
+        "label": "Title Here",
+        "id": "title_here",
+        "default": "Our Collection"
+      }, {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "page",
+        "name": "Page",
+        "settings": [
+          {
+            "type": "page",
+            "label": "Select Page",
+            "id": "slider_page"
+          }, {
+            "type": "image_picker",
+            "label": "Image Here",
+            "id": "page_featured_image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Slider"
+      }
+    ]
+  }
+{% endschema %}

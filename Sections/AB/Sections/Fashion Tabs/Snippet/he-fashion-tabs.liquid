@@ -1,0 +1,74 @@
+{% assign icon = 'Tree.png' %}
+
+<div class="tab">
+  {% for tab in blocks %}
+    <button class="tablinks {% if forloop.first %}active{% endif %}" onclick="openTab(event, '{{ tab.settings.tab_name | handleize }}')">{{ tab.settings.tab_name }}</button>
+  {% endfor %}
+</div>
+
+{% for panel in blocks %}
+  <div
+    id="{{ panel.settings.tab_name | handleize }}"
+    class="tabcontent {% if forloop.first %}active{% endif %}"
+    {% if forloop.first %}style="display: block;"{% endif %}>
+    <div class="he-fashion-panel">
+      {% comment %} Product 1 {% endcomment %}
+      <div class="he-fashion-product he-fashion-product1">
+        <div class="he-fashion-product-box-top">
+          {% render 'img-fluid', img: panel.settings.product1.featured_image %}
+          <div class="he-fasion-product-buttons-wrap he-fasion-product-buttons-wrap-top">
+            {% render 'he-two-button', btn1: panel.settings.button1_p1_text, btn1_url: panel.settings.button1_p1_url, btn2: panel.settings.button2_p1_text, btn1_url: panel.settings.button2_p1_url, class: "he-primay-button" %}
+          </div>
+        </div>
+        <div class="he-fashion-product-box-bottom">
+          <h3>{{ panel.settings.product1.title }}</h3>
+          <div class="he-fashion-product-info">
+            <i>{% render 'img-file', img: icon %}</i>
+            <span>{{ panel.settings.product1_info }}</span>
+          </div>
+          <div class="he-fasion-product-buttons-wrap-bottom">
+            {% render 'he-two-button', btn1: panel.settings.button1_p1_text, btn1_url: panel.settings.button1_p1_url, btn2: panel.settings.button2_p1_text, btn1_url: panel.settings.button2_p1_url, class: "he-secondary-button" %}
+          </div>
+        </div>
+      </div>
+      {% comment %} Product 2 {% endcomment %}
+      <div class="he-fashion-product he-fashion-product1">
+        <div class="he-fashion-product-box-top">
+          {% render 'img-fluid', img: panel.settings.product2.featured_image %}
+          <div class="he-fasion-product-buttons-wrap he-fasion-product-buttons-wrap-top">
+            {% render 'he-two-button', btn1: panel.settings.button1_p2_text, btn1_url: panel.settings.button1_p2_url, btn2: panel.settings.button2_p2_text, btn1_url: panel.settings.button2_p1_url, class: "he-primay-button" %}
+          </div>
+        </div>
+        <div class="he-fashion-product-box-bottom">
+          <h3>{{ panel.settings.product2.title }}</h3>
+          <div class="he-fashion-product-info">
+            <i>{% render 'img-file', img: icon %}</i>
+            <span>{{ panel.settings.product2_info }}</span>
+          </div>
+          <div class="he-fasion-product-buttons-wrap-bottom">
+            {% render 'he-two-button', btn1: panel.settings.button1_p1_text, btn1_url: panel.settings.button1_p1_url, btn2: panel.settings.button2_p1_text, btn1_url: panel.settings.button2_p1_url, class: "he-secondary-button" %}
+          </div>
+        </div>
+      </div>
+      {% comment %} Product 3 {% endcomment %}
+      <div class="he-fashion-product he-fashion-product1">
+        <div class="he-fashion-product-box-top">
+          {% render 'img-fluid', img: panel.settings.product3.featured_image %}
+          <div class="he-fasion-product-buttons-wrap he-fasion-product-buttons-wrap-top">
+            {% render 'he-two-button', btn1: panel.settings.button1_p3_text, btn1_url: panel.settings.button1_p3_url, btn2: panel.settings.button2_p3_text, btn1_url: panel.settings.button2_p3_url, class: "he-primay-button" %}
+          </div>
+        </div>
+        <div class="he-fashion-product-box-bottom">
+          <h3>{{ panel.settings.product3.title }}</h3>
+          <div class="he-fashion-product-info">
+            <i>{% render 'img-file', img: icon %}</i>
+            <span>{{ panel.settings.product3_info }}</span>
+          </div>
+          <div class="he-fasion-product-buttons-wrap-bottom">
+            {% render 'he-two-button', btn1: panel.settings.button1_p1_text, btn1_url: panel.settings.button1_p1_url, btn2: panel.settings.button2_p1_text, btn1_url: panel.settings.button2_p1_url, class: "he-secondary-button" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
