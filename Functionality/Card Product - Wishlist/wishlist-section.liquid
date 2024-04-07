@@ -1,0 +1,31 @@
+<div class="luis-wishlist-section" id="luis-wishlist-section">
+    <div class="luis-wishlist-row">
+        <div class="page-width">
+
+            <div class="luis-wishlist-wrap">
+                <div class="luis-wishlist-title-block">
+                    <h2>Wishlist</h2>
+                </div>
+                <ul class="luis-wishlist-grid grid product-grid grid--2-col-tablet-down grid--4-col-desktop" id="product-grid" grid-wishlist>
+                  <div class="loader-wrap"><div class="loader"></div></div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+     "name": "Wishlist"
+    }
+  ]
+}
+{% endschema %}

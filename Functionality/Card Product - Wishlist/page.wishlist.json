@@ -1,0 +1,11 @@
+{
+    "sections": {
+      "luis_wishlist_CqydQC": {
+        "type": "luis-wishlist",
+        "settings": {}
+      }
+    },
+    "order": [
+      "luis_wishlist_CqydQC"
+    ]
+  }
