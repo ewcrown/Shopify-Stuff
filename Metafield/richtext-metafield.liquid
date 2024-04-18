@@ -1,0 +1,56 @@
+
+{%- assign rich_text_content = collection.metafields.custom.collection_notes.value.children -%}
+{%- for block in rich_text_content -%}
+  {%- case block.type -%}
+    {%- when 'paragraph' -%}
+    <p>
+      {%- for item in block.children -%}
+          {%- if item.url != blank -%}<a href="{{ item.url }}">{%- endif -%}{%- if item.italic -%}<i>{%- endif -%}{%- if item.bold -%}<b>{%- endif -%}{%- if item.url != blank -%}{%- for item_inner in item.children -%}{{ item_inner.value }}{%- endfor -%}{%- else -%}{{ item.value }}{%- endif -%}{%- if item.bold -%}</b>{%- endif -%}{%- if item.italic -%}</i>{%- endif -%}{%- if item.url != blank -%}</a>{%- endif -%}
+      {%- endfor -%}
+    </p>  
+    {%- when 'heading' -%}
+    <h{{ block.level }}>
+      {%- for item in block.children -%}
+        
+          {%- if item.url != blank -%}
+            <a href="{{ item.url }}">
+          {%- endif -%}
+          {%- if item.italic -%}
+            <i>
+          {%- endif -%}
+          {%- if item.bold -%}
+            <b>
+          {%- endif -%}
+
+          {%- if item.url != blank -%}
+            {%- for item_inner in item.children -%}
+              {{ item_inner.value }}
+            {%- endfor -%}
+          {%- else -%}
+            {{ item.value }}
+          {%- endif -%}
+
+          {%- if item.bold -%}
+            </b>
+          {%- endif -%}
+          {%- if item.italic -%}
+            </i>
+          {%- endif -%}
+          {%- if item.url != blank -%}
+            </a>
+          {%- endif -%}
+        
+      {%- endfor -%}
+      </h{{ block.level }}>
+    {%- when 'list' -%}
+      <ul>
+        {%- for item in block.children -%}
+          
+          {%- for item_inner in item.children -%}
+            <li>{{ item_inner.value }}</li>
+          {%- endfor -%}
+          
+        {%- endfor -%}
+      </ul>
+  {%- endcase -%}
+{%- endfor -%}
