@@ -1,0 +1,34 @@
+<select class="ew-product-variant-select" id="ew-variant-ids">
+{% for variant in product.variants %}
+<option 
+  data-id="{{ variant.id }}" 
+  {% for option in variant.options %}
+    data-option{{ forloop.index }}="{{ option.name }}"
+  {% endfor %}
+  value="{{ variant.title }}"
+  {% unless variant.available %}disabled="true"{% endunless %}>{{ variant.title }}</option>
+{% endfor %}
+</select>
+
+<div class="ew-product-color-radios">
+<div class="ew-product-color-radio">    
+  {% for option in product.options_with_values %}
+    <div class="ew-product-variant ew-product-variant-{{ option.name | handleize }}">
+      {% for value in option.values %}
+        {% comment %} {% if variant.available %} {% endcomment %}
+          <div class="ew-product-color-radio-single ew-product-color-radio-single-{{ value | handleize }}">    
+            <input type="radio" data-cart-input id="{{ value | handleize }}" name="{{ option.name | handleize }}" value="{{ value }}" {% if forloop.index == 1 %}checked{% endif %} data-variant="{{ variant.id }}">
+            <label for="{{ value | handleize }}">
+              <span class="active-ball" style="background:var(--{{ value | handleize }})"></span>
+              {{ value }}
+            </label>
+          </div>
+        {% comment %} {% endif %} {% endcomment %}
+      {% endfor %}
+    </div>
+  {% endfor %}
+  </div>
+</div>
+<div class="ew-product-add-to-cart-block">
+{% render 'ew-quantity-selector' %}
+<button  type="submit" class="primary-btn" data-product-add-to-cart data-id="{{  product.selected_or_first_available_variant.id }}">Add To Cart</button>
